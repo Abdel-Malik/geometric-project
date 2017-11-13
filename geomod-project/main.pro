@@ -1,5 +1,5 @@
 # define your application name here 
-TARGET = yourAppName
+TARGET = Software3D_Modeling
 
 # add your source cpp files here 
 SOURCES += \
@@ -25,6 +25,7 @@ HEADERS += \
     curve1D.h \
     curve2D.h \
     curve1DLinear.h \
+    curve1DLagrange.h \
     curve2DLinear.h \
     animatedPoint.h 
 
