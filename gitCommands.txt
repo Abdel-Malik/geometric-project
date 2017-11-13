@@ -3,5 +3,6 @@ download last version : git pull origin master
 adding news files : git add [Your files]
 
 prepare your modification : git commit -a
+An emacs window should open. After all "#" lines, add your information comment and type "C-x C-c" to save and exit
 
 update repository : git push origin master
