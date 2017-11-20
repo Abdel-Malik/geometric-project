@@ -26,7 +26,9 @@ HEADERS += \
     curve2D.h \
     curve1DLinear.h \
     curve2DLinear.h \
+    curve2DHermite.h \
     lagrange.h \
+    PolyN.h \
     animatedPoint.h 
 
 TEMPLATE = app
