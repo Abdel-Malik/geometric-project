@@ -5,6 +5,7 @@
 #include "curve1DLinear.h"
 #include "curve2DHermite.h"
 #include "lagrange.h"
+#include "bezier.h"
 
 Scene *Scene::_instance = NULL;
 
@@ -15,6 +16,7 @@ void Scene::initCurveBuilders() {
   addCurveBuilder(new Curve2DLinearConstructor());
   addCurveBuilder(new Curve2DHermiteConstructor());
   addCurveBuilder(new LagrangeConstructor());
+  addCurveBuilder(new BezierConstructor());
 }
 
 // add 1D curve builders (functions) here

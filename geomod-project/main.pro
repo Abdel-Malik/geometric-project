@@ -29,6 +29,7 @@ HEADERS += \
     curve2DHermite.h \
     curve2DMoindreCarre.h \
     lagrange.h \
+    bezier.h \
     PolyN.h \
     animatedPoint.h 
 
