@@ -2,9 +2,8 @@
 
 // add all your types of 2D curves here 
 #include "curve2DLinear.h"
-// add all your types of 1D curves here 
 #include "curve1DLinear.h"
-#include "curve1DLagrange.h"
+#include "lagrange.h"
 
 Scene *Scene::_instance = NULL;
 
@@ -13,12 +12,12 @@ using namespace std;
 // add 2D curve builders here 
 void Scene::initCurveBuilders() {
   addCurveBuilder(new Curve2DLinearConstructor());
+  addCurveBuilder(new LagrangeConstructor());
 }
 
 // add 1D curve builders (functions) here
 void Scene::initFunctionBuilders() {
   addFunctionBuilder(new Curve1DLinearConstructor());
-  addFunctionBuilder(new Curve1DLagrangeConstructor());
 }
 
 
