@@ -7,12 +7,15 @@ class Curve2DMoindreCarre : public Curve2D {
  public:
  Curve2DMoindreCarre(const QString &name) : Curve2D(name) {}
  Curve2DMoindreCarre(Curve2D *curve,const QString &name) : Curve2D(curve,name) {}
-  
+
   QPainterPath path(float frame) {
     QPainterPath p;
-    if(nbPts()==0) 
+    if(nbPts()==0)
       return p;
-
+    if(nbPts()!=taille){
+      computeMeanSquare();
+      taille = nbPts();
+    }
     Vector2f pt = evalAnimPt(get(0),frame);
 
     p.moveTo(pt[0],pt[1]);
@@ -21,6 +24,22 @@ class Curve2DMoindreCarre : public Curve2D {
       p.lineTo(pt[0],pt[1]);
     }
     return p;
+  }
+
+ private:
+ MatrixXd A=NULL;
+ MatrixXd invA;
+ Vector1X meanSquare;
+ PolyN meanSquarePoly;
+ int taille =0;
+
+  void computeMeanSquare(){
+    if(A != NULL){
+      delete A;
+      delete invA;
+      delete meanSquarePoly;
+    }
+    A = new MatrixXd(nbPts(),nbPts());
   }
 };
 
