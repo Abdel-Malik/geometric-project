@@ -28,7 +28,9 @@ HEADERS += \
     curve1DLinear.h \
     curve2DLinear.h \
     curve2DHermite.h \
+    curve2DMoindreCarre.h \
     lagrange.h \
+    bezier.h \
     PolyN.h \
     animatedPoint.h 
 
