@@ -3,6 +3,13 @@
 #include <string>
 #include "PolyN.h"
 
+PolyN::PolyN(){
+    this->n=0;
+    this->coefs=NULL;
+    PolyNDeriv = NULL;
+}
+
+
 PolyN::PolyN(float *coefs, int n){
     assert(n>0 && coefs[n-1] != 0);
     this->n=n;
@@ -34,9 +41,9 @@ PolyN* PolyN::derivative(){
         }
         PolyN* pol=new PolyN(coefs2,N);
         delete(coefs2);
-        PolyDeriv = pol;
+        PolyNDeriv = pol;
     }
-    return PolyDeriv;
+    return PolyNDeriv;
 }
 
 float PolyN::val(float f){

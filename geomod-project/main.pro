@@ -11,6 +11,7 @@ SOURCES += \
     animationWidgetItems.cpp \
     animationWidget.cpp \
     scene.cpp \
+    PolyN.cpp \
     animatedPoint.cpp 
 
 # add your header files here

@@ -8,6 +8,7 @@ class PolyN{
         float *coefs;
         PolyN *PolyNDeriv;
         int n;
+        PolyN();
         PolyN(float *coefs, int n);
         ~PolyN();
         PolyN* derivative();
