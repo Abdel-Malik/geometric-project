@@ -1,5 +1,6 @@
 #makefile
 Makefile
+yourAppName
 
 # Compiled Object files
 *.o
