@@ -12,14 +12,21 @@ class Curve2DMoindreCarre : public Curve2D {
     QPainterPath p;
     if(nbPts()==0)
       return p;
-    int pas = 50;
-    unsigned int nbDiscretePts = pas*nbPts();
-    Vector2f point = evalAnimPt(get(0),frame);
-    double valX = point[0];
+    unsigned int nbDiscretePts = 50;
+    Vector2f pointPrec = evalAnimPt(get(0),frame);
+    Vector2f point;
+    double valX = pointPrec[0];
     computeMeanSquare(frame);
-    for(unsigned int i=0;i<=nbDiscretePts;i++) {
-      p.lineTo(valX,meanSquarePoly->val(valX));
-      valX += 1/nbDiscretePts;
+    double dx;
+    p.moveTo(pointPrec[0],pointPrec[1]);
+    for(unsigned int k=1;k<nbPts();k++){
+      pointPrec = evalAnimPt(get(k-1),frame);
+      point = evalAnimPt(get(k),frame);
+      dx = (point[0]-pointPrec[0])/nbDiscretePts;
+      for(unsigned int i=0;i<=nbDiscretePts;i++) {
+        valX += dx;
+        p.lineTo(valX,meanSquarePoly.val(valX));
+      }
     }
     return p;
   }
@@ -28,23 +35,22 @@ class Curve2DMoindreCarre : public Curve2D {
  MatrixXf A;
  VectorXf b;
  VectorXf meanSquare;
- PolyN* meanSquarePoly;
- unsigned int taille = 0;
+ PolyN meanSquarePoly;
 
   void computeMeanSquare(float frame){
-    if(taille != nbPts() || (taille ==0 && nbPts()>0)) {
-      delete meanSquarePoly;
-      //row - column
-      A = MatrixXf(nbPts(),3);
-      b = VectorXf(nbPts());
-      meanSquarePoly = new PolyN(nbPts());
-    }
+    //row - column
+    unsigned int ordrep1 = 2;
+    if(nbPts()<ordrep1)
+      ordrep1=nbPts();
+    A = MatrixXf(nbPts(),ordrep1);
+    b = VectorXf(nbPts());
+    meanSquarePoly = PolyN(ordrep1);
     double xTemp = 1;
     Vector2f pt;
     for(unsigned int ligne=0; ligne<nbPts();ligne++){
       pt = evalAnimPt(get(ligne),frame);
       b(ligne) = pt[1];
-      for(int colonne=2; colonne>=0;colonne--){
+      for(int colonne=ordrep1-1; colonne>=0;colonne--){
         A(ligne,colonne) = xTemp;
        	xTemp = xTemp*pt[0];
       }
@@ -55,13 +61,12 @@ class Curve2DMoindreCarre : public Curve2D {
     invtAA = invtAA.inverse();
     MatrixXf finalA = (invtAA)*tA;
     meanSquare = finalA*b;
-cout << meanSquare;
-    remplirPolyN();
+    remplirPolyN(ordrep1);
   }
 
-  void remplirPolyN(){
-    for(unsigned int i=0;i<nbPts();i++){
-      meanSquarePoly->editCoef(i,meanSquare(i));
+  void remplirPolyN(unsigned int t){
+    for(unsigned int i=0;i<t;i++){
+      meanSquarePoly.editCoef(i,meanSquare((t-1)-i));
     }
   }
 };
