@@ -12,34 +12,57 @@ class Curve2DMoindreCarre : public Curve2D {
     QPainterPath p;
     if(nbPts()==0)
       return p;
-    if(nbPts()!=taille){
-      computeMeanSquare();
-      taille = nbPts();
-    }
-    Vector2f pt = evalAnimPt(get(0),frame);
-
-    p.moveTo(pt[0],pt[1]);
-    for(unsigned int i=1;i<nbPts();++i) {
-      pt = evalAnimPt(get(i),frame);
-      p.lineTo(pt[0],pt[1]);
+    int pas = 50;
+    unsigned int nbDiscretePts = pas*nbPts();
+    Vector2f point = evalAnimPt(get(0),frame);
+    double valX = point[0];
+    computeMeanSquare(frame);
+    for(unsigned int i=0;i<=nbDiscretePts;i++) {
+      p.lineTo(valX,meanSquarePoly->val(valX));
+      valX += 1/nbDiscretePts;
     }
     return p;
   }
 
  private:
- MatrixXd A=NULL;
- MatrixXd invA;
- Vector1X meanSquare;
- PolyN meanSquarePoly;
- int taille =0;
+ MatrixXf A;
+ VectorXf b;
+ VectorXf meanSquare;
+ PolyN* meanSquarePoly;
+ unsigned int taille = 0;
 
-  void computeMeanSquare(){
-    if(A != NULL){
-      delete A;
-      delete invA;
+  void computeMeanSquare(float frame){
+    if(taille != nbPts() || (taille ==0 && nbPts()>0)) {
       delete meanSquarePoly;
+      //row - column
+      A = MatrixXf(nbPts(),3);
+      b = VectorXf(nbPts());
+      meanSquarePoly = new PolyN(nbPts());
     }
-    A = new MatrixXd(nbPts(),nbPts());
+    double xTemp = 1;
+    Vector2f pt;
+    for(unsigned int ligne=0; ligne<nbPts();ligne++){
+      pt = evalAnimPt(get(ligne),frame);
+      b(ligne) = pt[1];
+      for(int colonne=2; colonne>=0;colonne--){
+        A(ligne,colonne) = xTemp;
+       	xTemp = xTemp*pt[0];
+      }
+      xTemp = 1;
+    }
+    MatrixXf tA = A.transpose();
+    MatrixXf invtAA = tA*A;
+    invtAA = invtAA.inverse();
+    MatrixXf finalA = (invtAA)*tA;
+    meanSquare = finalA*b;
+cout << meanSquare;
+    remplirPolyN();
+  }
+
+  void remplirPolyN(){
+    for(unsigned int i=0;i<nbPts();i++){
+      meanSquarePoly->editCoef(i,meanSquare(i));
+    }
   }
 };
 

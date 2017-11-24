@@ -4,6 +4,8 @@
 #include "curve2D.h"
 #include "PolyN.h"
 
+using namespace std;
+
 class Curve2DHermite : public Curve2D {
  public:
  Curve2DHermite(const QString &name) : Curve2D(name) {
@@ -43,22 +45,23 @@ class Curve2DHermite : public Curve2D {
     HermitePolynomes[3] = PolyN(coef3,4);
   }
 
-  vector<float> derive(vector<vector2f> pts){
+  vector<float> derive(vector<Vector2f> pts){
 	int s=pts.size();
-  	vector<float> d(s)=pts;
+  	vector<float> d(s);
 	d[0]=(pts[1][1]-pts[0][1])/(pts[1][0]-pts[0][0]);
 	d[s-1]=(pts[s-1][1]-pts[s-2][1])/(pts[s-1][0]-pts[s-2][0]);
 	for(int i=1;i<s-1;i++) {
 		d[i]=(pts[i+1][1]-pts[i-1][1])/(pts[i+1][0]-pts[i-1][0]);
   	}
   return d;
-	
-  void Hermite(vector<vector2f> pts){
+  }
+
+  void Hermite(vector<Vector2f> pts){
 	int s=pts.size();
   	float pas=1/50;
 	for(int j=0;j<s;j++) {
 		for(int i=0;i<50;i++) {
-			T=HermitePolynomes[0].val(i*pas)*pts[j][1]+HermitePolynomes[1].val(i*pas)+HermitePolynomes[2].val(i*pas)+HermitePolynomes[3].val(i*pas)
+			//T=HermitePolynomes[0].val(i*pas)*pts[j][1]+HermitePolynomes[1].val(i*pas)+HermitePolynomes[2].val(i*pas)+HermitePolynomes[3].val(i*pas)
 		}
 	}
   }

@@ -4,6 +4,7 @@
 #include "curve2DLinear.h"
 #include "curve1DLinear.h"
 #include "curve2DHermite.h"
+#include "curve2DMoindreCarre.h"
 #include "lagrange.h"
 #include "bezier.h"
 
@@ -15,6 +16,7 @@ using namespace std;
 void Scene::initCurveBuilders() {
   addCurveBuilder(new Curve2DLinearConstructor());
   addCurveBuilder(new Curve2DHermiteConstructor());
+  addCurveBuilder(new Curve2DMoindreCarreConstructor());
   addCurveBuilder(new LagrangeConstructor());
   addCurveBuilder(new BezierConstructor());
 }
