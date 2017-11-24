@@ -23,6 +23,9 @@ PolyN::PolyN(float *coefs, int n){
 PolyN::PolyN(int n){
     this->n=n;
     this->coefs=new float[n];
+    for(int i=0;i<n;i++){
+        this->coefs[i]=0;
+    }
     PolyNDeriv = NULL;
 }
 
@@ -62,9 +65,9 @@ float PolyN::val(float f){
     return resultat;
 }
 
-void PolyN::editCoef(int n, float f){
-    if(n>=0 && n< this->n)
-  	   this->coefs[n] = f;
+void PolyN::editCoef(int pos, float f){
+    if(pos>=0 && pos < this->n)
+  	   this->coefs[pos] = f;
 }
 
 std::ostream &operator<<(std::ostream &o, const PolyN &pol){
