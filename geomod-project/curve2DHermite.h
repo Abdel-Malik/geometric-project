@@ -20,12 +20,15 @@ class Curve2DHermite : public Curve2D {
     if(nbPts()==0) 
       return p;
 
-    Vector2f pt = evalAnimPt(get(0),frame);
+    vector<Vector2f> pts1;
 
-    p.moveTo(pt[0],pt[1]);
-    for(unsigned int i=1;i<nbPts();++i) {
-      pt = evalAnimPt(get(i),frame);
-      p.lineTo(pt[0],pt[1]);
+    for(unsigned int i=0;i<nbPts();++i) {
+      pts1.push_back(evalAnimPt(get(i),frame));
+    }
+    vector<Vector2f> pts2=Hermite(pts1);
+    p.moveTo(pts2[0][0],pts2[0][1]);
+    for(unsigned int j=0;j<pts2.size();j++){
+      p.lineTo(pts2[j][0],pts2[j][1]);
     }
     return p;
   }
@@ -56,14 +59,22 @@ class Curve2DHermite : public Curve2D {
   return d;
   }
 
-  void Hermite(vector<Vector2f> pts){
-	int s=pts.size();
-  	float pas=1/50;
-	for(int j=0;j<s;j++) {
-		for(int i=0;i<50;i++) {
-			//T=HermitePolynomes[0].val(i*pas)*pts[j][1]+HermitePolynomes[1].val(i*pas)+HermitePolynomes[2].val(i*pas)+HermitePolynomes[3].val(i*pas)
-		}
-	}
+  vector<Vector2f> Hermite(vector<Vector2f> pts){
+    vector<Vector2f> connard;
+    int s=pts.size();
+    cout << s << endl;
+    float pas= 1.0/50;
+    for(int j=0;j<s;j++) {
+      for(int i=0;i<50;i++) {
+	float T=HermitePolynomes[0].val(i*pas)*pts[j][1]+HermitePolynomes[1].val(i*pas)*derive(pts)[j]+HermitePolynomes[2].val(i*pas)*pts[j+1][1]+HermitePolynomes[3].val(i*pas)*derive(pts)[j+1];
+	float reso=T*(pts[j+1][1]-pts[j][1])+pts[j][1];
+	float resa=i*pas*(pts[j+1][0]-pts[j][0])+pts[j][0];
+	Vector2f salope(resa,reso);
+	connard.push_back(salope);
+	cout << resa << " "<< reso << endl;
+      }
+    }
+    return connard;
   }
 };
 
