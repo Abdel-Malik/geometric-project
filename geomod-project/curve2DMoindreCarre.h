@@ -16,7 +16,9 @@ class Curve2DMoindreCarre : public Curve2D {
     Vector2f pointPrec = evalAnimPt(get(0),frame);
     Vector2f point;
     double valX = pointPrec[0];
+cout <<"computing ! "<< endl;
     computeMeanSquare(frame);
+cout <<"end cmp " << endl;
     double dx;
     p.moveTo(pointPrec[0],pointPrec[1]);
     for(unsigned int k=1;k<nbPts();k++){
@@ -61,6 +63,7 @@ class Curve2DMoindreCarre : public Curve2D {
   }
 
   void remplirPolyN(VectorXd coeffs,unsigned int t){
+cout << "remplissage" << endl;
     for(unsigned int i=0;i<t;i++){
       meanSquarePoly.editCoef(i,coeffs((t-1)-i));
     }
