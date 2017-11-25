@@ -20,7 +20,7 @@ cout <<"computing ! "<< endl;
     computeMeanSquare(frame);
 cout <<"end cmp " << endl;
     double dx;
-    p.moveTo(pointPrec[0],pointPrec[1]);
+    p.moveTo(valX,meanSquarePoly.val(valX));
     for(unsigned int k=1;k<nbPts();k++){
       pointPrec = evalAnimPt(get(k-1),frame);
       point = evalAnimPt(get(k),frame);
