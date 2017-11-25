@@ -32,19 +32,15 @@ class Curve2DMoindreCarre : public Curve2D {
   }
 
  private:
- MatrixXf A;
- VectorXf b;
- VectorXf meanSquare;
- PolyN meanSquarePoly;
+ PolyN meanSquarePoly = PolyN(0);
 
   void computeMeanSquare(float frame){
     //row - column
-    unsigned int ordrep1 = 2;
+    unsigned int ordrep1 = 3;
     if(nbPts()<ordrep1)
       ordrep1=nbPts();
-    A = MatrixXf(nbPts(),ordrep1);
-    b = VectorXf(nbPts());
-    meanSquarePoly = PolyN(ordrep1);
+    MatrixXd A(nbPts(),ordrep1);
+    VectorXd b(nbPts());
     double xTemp = 1;
     Vector2f pt;
     for(unsigned int ligne=0; ligne<nbPts();ligne++){
@@ -56,17 +52,17 @@ class Curve2DMoindreCarre : public Curve2D {
       }
       xTemp = 1;
     }
-    MatrixXf tA = A.transpose();
-    MatrixXf invtAA = tA*A;
+    MatrixXd tA = A.transpose();
+    MatrixXd invtAA = tA*A;
     invtAA = invtAA.inverse();
-    MatrixXf finalA = (invtAA)*tA;
-    meanSquare = finalA*b;
-    remplirPolyN(ordrep1);
+    MatrixXd finalA = (invtAA)*tA;
+    VectorXd meanSquare = finalA*b;
+    remplirPolyN(meanSquare,ordrep1);
   }
 
-  void remplirPolyN(unsigned int t){
+  void remplirPolyN(VectorXd coeffs,unsigned int t){
     for(unsigned int i=0;i<t;i++){
-      meanSquarePoly.editCoef(i,meanSquare((t-1)-i));
+      meanSquarePoly.editCoef(i,coeffs((t-1)-i));
     }
   }
 };

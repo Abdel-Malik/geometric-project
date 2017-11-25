@@ -3,26 +3,23 @@
 #include <string>
 #include "PolyN.h"
 
-PolyN::PolyN(){
-    this->n=0;
-    this->coefs=NULL;
+PolyN::PolyN():coefs(),n(0){
     PolyNDeriv = NULL;
 }
 
 
-PolyN::PolyN(float *coefs, int n){
-    assert(n>0 && coefs[n-1] != 0);
+PolyN::PolyN(float *tabCoef, int n):coefs(n){
+    assert(n>0 && tabCoef[n-1] != 0);
     this->n=n;
-    this->coefs=new float[n];
     for(int i=0;i<n;i++){
-        this->coefs[i]=coefs[i];
+        coefs[i]=tabCoef[i];
     }
     PolyNDeriv = NULL;
 }
 
-PolyN::PolyN(int n){
+PolyN::PolyN(int n):coefs(n){
+    assert(n>=0);
     this->n=n;
-    this->coefs=new float[n];
     for(int i=0;i<n;i++){
         this->coefs[i]=0;
     }
@@ -30,11 +27,10 @@ PolyN::PolyN(int n){
 }
 
 PolyN::~PolyN(){
-    delete(this->coefs);
 }
 
 PolyN* PolyN::derivative(){
-    if(PolyNDeriv == NULL){
+    if(PolyNDeriv == NULL && !coefs.empty()){
         int N;
         float* coefs2;
         if(n>1){
@@ -52,6 +48,8 @@ PolyN* PolyN::derivative(){
         delete(coefs2);
         PolyNDeriv = pol;
     }
+    if(coefs.empty())
+        return new PolyN();
     return PolyNDeriv;
 }
 
@@ -66,8 +64,16 @@ float PolyN::val(float f){
 }
 
 void PolyN::editCoef(int pos, float f){
-    if(pos>=0 && pos < this->n)
-  	   this->coefs[pos] = f;
+    if(pos>=0){
+	if(pos < this->n)
+	    this->coefs[pos] = f;
+	else
+	    addCoef(f);
+    }
+}
+
+void PolyN::addCoef(float f){
+    coefs.push_back(f);
 }
 
 std::ostream &operator<<(std::ostream &o, const PolyN &pol){

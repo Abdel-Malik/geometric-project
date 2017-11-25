@@ -1,11 +1,11 @@
 #include <iostream>
+#include <vector>
 
 class PolyN{
     private:
 
-
     public:
-        float *coefs;
+        std::vector<float> coefs;
         PolyN *PolyNDeriv;
         int n;
         PolyN();
@@ -15,6 +15,7 @@ class PolyN{
         PolyN* derivative();
         float val(float f);
         void editCoef(int n,float f);
+        void addCoef(float f);
         friend std::ostream &operator<<(std::ostream &, const PolyN &);
 
 };
