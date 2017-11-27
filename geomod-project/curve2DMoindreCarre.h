@@ -36,7 +36,7 @@ class Curve2DMoindreCarre : public Curve2D {
 
   void computeMeanSquare(float frame){
     //row - column
-    unsigned int ordrep1 = 4;
+    unsigned int ordrep1 = 7;
     if(nbPts()<ordrep1)
       ordrep1=nbPts();
     MatrixXd A(nbPts(),ordrep1);
