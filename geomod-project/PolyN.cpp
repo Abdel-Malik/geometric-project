@@ -64,7 +64,6 @@ float PolyN::val(float f){
 }
 
 void PolyN::editCoef(int pos, float f){
-std::cout << "editing at : "<<pos<<" n = "<<n << std::endl;
     if(pos>=0){
 	if(pos < n)
 	    this->coefs[pos] = f;
@@ -76,8 +75,6 @@ std::cout << "editing at : "<<pos<<" n = "<<n << std::endl;
 void PolyN::addCoef(float f){
     coefs.push_back(f);
     n++;
-    std::cout <<"push back :"<<std::endl;
-    std::cout <<(*this)<<std::endl;
 }
 
 std::ostream &operator<<(std::ostream &o, const PolyN &pol){

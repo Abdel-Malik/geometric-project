@@ -16,9 +16,7 @@ class Curve2DMoindreCarre : public Curve2D {
     Vector2f pointPrec = evalAnimPt(get(0),frame);
     Vector2f point;
     double valX = pointPrec[0];
-cout <<"computing ! "<< endl;
     computeMeanSquare(frame);
-cout <<"end cmp " << endl;
     double dx;
     p.moveTo(valX,meanSquarePoly.val(valX));
     for(unsigned int k=1;k<nbPts();k++){
@@ -38,7 +36,7 @@ cout <<"end cmp " << endl;
 
   void computeMeanSquare(float frame){
     //row - column
-    unsigned int ordrep1 = 3;
+    unsigned int ordrep1 = 4;
     if(nbPts()<ordrep1)
       ordrep1=nbPts();
     MatrixXd A(nbPts(),ordrep1);
@@ -63,7 +61,6 @@ cout <<"end cmp " << endl;
   }
 
   void remplirPolyN(VectorXd coeffs,unsigned int t){
-cout << "remplissage" << endl;
     for(unsigned int i=0;i<t;i++){
       meanSquarePoly.editCoef(i,coeffs((t-1)-i));
     }
