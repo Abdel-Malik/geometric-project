@@ -28,9 +28,11 @@ HEADERS += \
     curve1DLinear.h \
     curve2DLinear.h \
     curve2DLinearClosed.h \
-    curve2DHermite.h \
     curve1DHermite.h \
+    curve2DHermite.h \
     curve2DMoindreCarre.h \
+    curve1DLagrange.h \
+    caligraphy.h \
     lagrange.h \
     bezier.h \
     PolyN.h \

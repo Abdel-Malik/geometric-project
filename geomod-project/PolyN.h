@@ -1,3 +1,5 @@
+#ifndef POLYN_H
+#define POLYN_H
 #include <iostream>
 #include <vector>
 
@@ -19,3 +21,4 @@ class PolyN{
         friend std::ostream &operator<<(std::ostream &, const PolyN &);
 
 };
+#endif
