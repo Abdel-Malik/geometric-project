@@ -2,8 +2,9 @@
 
 //all types of 1D curves
 #include "curve1DLinear.h"
+#include "curve1DHermite.h"
 
-// add all your types of 2D curves here 
+// add all your types of 2D curves here
 #include "curve2DLinear.h"
 #include "curve2DLinearClosed.h"
 #include "curve2DHermite.h"
@@ -15,7 +16,7 @@ Scene *Scene::_instance = NULL;
 
 using namespace std;
 
-// add 2D curve builders here 
+// add 2D curve builders here
 void Scene::initCurveBuilders() {
   addCurveBuilder(new Curve2DLinearConstructor());
   addCurveBuilder(new Curve2DLinearClosedConstructor());
@@ -28,14 +29,15 @@ void Scene::initCurveBuilders() {
 // add 1D curve builders (functions) here
 void Scene::initFunctionBuilders() {
   addFunctionBuilder(new Curve1DLinearConstructor());
+  addFunctionBuilder(new Curve1DHermiteConstructor());
 }
 
 
 void Scene::cleanCurveBuilders() {
   map<QString,Curve2DConstructor *>::const_iterator mit(_curveBuilders.begin()),mend(_curveBuilders.end());
-  
-  for(;mit!=mend;++mit) { 
-    delete mit->second; 
+
+  for(;mit!=mend;++mit) {
+    delete mit->second;
   }
 
   _curveBuilders.clear();
@@ -43,9 +45,9 @@ void Scene::cleanCurveBuilders() {
 
 void Scene::cleanFunctionBuilders() {
   map<QString,Curve1DConstructor *>::const_iterator mit(_functionBuilders.begin()),mend(_functionBuilders.end());
-  
-  for(;mit!=mend;++mit) { 
-    delete mit->second; 
+
+  for(;mit!=mend;++mit) {
+    delete mit->second;
   }
 
   _functionBuilders.clear();

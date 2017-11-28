@@ -70,12 +70,12 @@ vector<Vector2f> Hermite(vector<Vector2f> pts){
 		for(int i=0;i<=50;i++){
 			float t = (i*pas);
 			float d = derive(pts)[j];
-			if(pts[j+1][0]-pts[j-1][0]<0){
+			/*if(pts[j+1][0]-pts[j-1][0]<0){
 				d=-d;
 			}
 			if(pts[j+1][0]-pts[j][0]<0){
 				d=-d;
-			}
+			}*/
 	float T1=HermitePolynomes[0].val(t)*pts[j][1]+HermitePolynomes[1].val(t)*derive(pts)[j]*(pts[j+1][0]-pts[j][0])+HermitePolynomes[2].val(t)*pts[j+1][1]+HermitePolynomes[3].val(t)*derive(pts)[j+1]*(pts[j+1][0]-pts[j][0]);
 	float reso=T1; 
 	float resa=t*(pts[j+1][0]-pts[j][0])+pts[j][0];
