@@ -1,8 +1,11 @@
 #include "scene.h"
 
+//all types of 1D curves
+#include "curve1DLinear.h"
+
 // add all your types of 2D curves here 
 #include "curve2DLinear.h"
-#include "curve1DLinear.h"
+#include "curve2DLinearClosed.h"
 #include "curve2DHermite.h"
 #include "curve2DMoindreCarre.h"
 #include "lagrange.h"
@@ -15,6 +18,7 @@ using namespace std;
 // add 2D curve builders here 
 void Scene::initCurveBuilders() {
   addCurveBuilder(new Curve2DLinearConstructor());
+  addCurveBuilder(new Curve2DLinearClosedConstructor());
   addCurveBuilder(new Curve2DHermiteConstructor());
   addCurveBuilder(new Curve2DMoindreCarreConstructor());
   addCurveBuilder(new LagrangeConstructor());
