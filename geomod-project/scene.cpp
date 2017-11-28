@@ -7,6 +7,8 @@
 #include "curve2DMoindreCarre.h"
 #include "lagrange.h"
 #include "bezier.h"
+#include "bspline.h"
+
 
 Scene *Scene::_instance = NULL;
 
@@ -19,6 +21,7 @@ void Scene::initCurveBuilders() {
   addCurveBuilder(new Curve2DMoindreCarreConstructor());
   addCurveBuilder(new LagrangeConstructor());
   addCurveBuilder(new BezierConstructor());
+  addCurveBuilder(new BsplineConstructor());
 }
 
 // add 1D curve builders (functions) here

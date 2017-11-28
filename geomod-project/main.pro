@@ -31,6 +31,7 @@ HEADERS += \
     curve2DMoindreCarre.h \
     lagrange.h \
     bezier.h \
+    bspline.h \
     PolyN.h \
     animatedPoint.h 
 
