@@ -4,6 +4,7 @@
 #include "curve1DLinear.h"
 #include "curve1DHermite.h"
 #include "curve1DLagrange.h"
+#include "curve1Dcos.h"
 
 // add all your types of 2D curves here
 #include "curve2DLinear.h"
@@ -14,6 +15,9 @@
 #include "lagrange.h"
 #include "bezier.h"
 #include "bspline.h"
+#include "curve2Dcircle.h"
+
+
 
 
 Scene *Scene::_instance = NULL;
@@ -30,6 +34,7 @@ void Scene::initCurveBuilders() {
   addCurveBuilder(new LagrangeConstructor());
   addCurveBuilder(new BezierConstructor());
   addCurveBuilder(new BsplineConstructor());
+  addCurveBuilder(new Curve2DCircleConstructor());
 }
 
 // add 1D curve builders (functions) here
@@ -37,6 +42,7 @@ void Scene::initFunctionBuilders() {
   addFunctionBuilder(new Curve1DLinearConstructor());
   addFunctionBuilder(new Curve1DLagrangeConstructor());
   addFunctionBuilder(new Curve1DHermiteConstructor());
+  addFunctionBuilder(new Curve1DcosConstructor());
 }
 
 

@@ -17,14 +17,19 @@ class Curve1Dcos : public Curve1D {
       return p;
       
     // global variable
- 	unsigned int M=500;
+ 	unsigned int M=100;
+ 	//A is amplitude
+ 	unsigned int A=10;
+ 	//W is amplitude
+ 	unsigned int W=0.5;
+ 	
     
 	// left part 
 	if(xmin<_points[0][0]) {
-		p.moveTo(xmin,_points[0][1]);
-		for(unsigned int j=0;j<M;j++){
+	  p.moveTo(xmin,_points[0][1]);
+	  for(unsigned int j=0;j<M;j++){
 			float x = xmin + j*((_points[0][0]-xmin)/M);
-			float y = _points[0][1] + 200*cos (x);
+			float y = _points[0][1] + A*cos (W*x);
 			p.lineTo(x,y);
 		}
 	} else {
@@ -32,10 +37,12 @@ class Curve1Dcos : public Curve1D {
 	}
 
     // draw function 
+    
     for(unsigned int i=0;i<nbPts()-1;i++){	
 		for(unsigned int j=0;j<M;j++){
 		float x = _points[i][0] + j*((_points[i+1][0]-_points[i][0])/M);
-		float y = _points[i][1]+(_points[i+1][1]-_points[i][1])*((x-_points[i][0])/(_points[i+1][0]-_points[i][0])) + 200*cos(x-_points[i][0]);
+		float y = _points[i][1]+(_points[i+1][1]-_points[i][1])*((x-_points[i][0])/(_points[i+1][0]-_points[i][0])) + A*cos(x-_points[i][0]);
+		//float y = _points[i][1]+(_points[i+1][1]-_points[i][1])*(j/M) + A*cos(W*(x-_points[i][0]))*sin(W*(x-_points[i][0]));
 		p.lineTo(x,y);
 		}
     }
@@ -44,7 +51,7 @@ class Curve1Dcos : public Curve1D {
 	if(xmax>_points[nbPts()-1][0]) {
 		for(unsigned int j=0;j<M;j++){
 			float x = _points[nbPts()-1][0]+j*((xmax-_points[nbPts()-1][0])/M);
-			float y = _points[nbPts()-1][1] + 200*cos (x);
+			float y = _points[nbPts()-1][1] + A*cos(W*x);
 			p.lineTo(x,y);
 		}
 	}
@@ -53,21 +60,25 @@ class Curve1Dcos : public Curve1D {
   }
 
   /* To maintain the curve already drawn */
+  
   float evalAt(float x){
+	 unsigned int A=10;
+ 	//W is amplitude
+ 	unsigned int W=10;
   	// special cases 
     if(empty()) return 0.0f;
     if(x<=_points[0][0]) {
       float a = 0.0f;
-      return _points[0][1] + cos(x);
+      return _points[0][1] + A*cos(W*x);
     }
     if(x>=_points[nbPts()-1][0]) {
-      return _points[nbPts()-1][1] + 200*cos(x);
+      return _points[nbPts()-1][1] + A*cos(W*x);
     }
     
     // interpolation
     for(unsigned int i=0;i<nbPts()-1;++i) {
       if(_points[i+1][0]>=x) {
-	return _points[i][1]+(_points[i+1][1]-_points[i][1])*((x-_points[i][0])/(_points[i+1][0]-_points[i][0])) + 200*cos(x-_points[i][0]);
+	return _points[i][1]+(_points[i+1][1]-_points[i][1])*((x-_points[i][0])/(_points[i+1][0]-_points[i][0])) + A*cos(W*(x-_points[i][0]));
       }
     }
     return _points[0][1];

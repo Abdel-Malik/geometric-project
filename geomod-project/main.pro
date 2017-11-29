@@ -32,10 +32,12 @@ HEADERS += \
     curve2DHermite.h \
     curve2DMoindreCarre.h \
     curve1DLagrange.h \
+    curve1Dcos.h \
     caligraphy.h \
     lagrange.h \
     bezier.h \
     bspline.h \
+    curve2DCircle.h \
     PolyN.h \
     animatedPoint.h 
 
