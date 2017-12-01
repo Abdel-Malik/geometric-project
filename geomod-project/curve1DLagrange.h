@@ -38,7 +38,7 @@ class Curve1DLagrange : public Curve1D {
     //row - column
     MatrixXd A(nbPts(),ordrep1);
     VectorXd b(nbPts());
-    double xTemp = 1;
+    double xTemp = 1 ;
     for(unsigned int ligne=0; ligne<nbPts();ligne++){
       b(ligne) = _points[ligne][1];
       for(int colonne=ordrep1-1; colonne>=0;colonne--){
