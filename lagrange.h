@@ -1,3 +1,4 @@
+//test
 #ifndef LAGRANGE_H
 #define LAGRANGE_H
 #include "curve2D.h"
@@ -10,9 +11,9 @@ class Lagrange : public Curve2D {
  public:
  Lagrange(const QString &name) : Curve2D(name) {}
  Lagrange(Curve2D *curve,const QString &name) : Curve2D(curve,name) {}
- 
- 
- 
+
+
+
 void coef_newton(float frame){
   std::vector<std::vector<float> > Atemp;
   Atemp.resize(nbPts());
@@ -22,29 +23,29 @@ void coef_newton(float frame){
 	Atemp[i].resize(nbPts());
   	pt = evalAnimPt(get(i),frame);
   	Atemp[i][0]=pt[1];
-  }  
+  }
   for (unsigned int i=1; i<nbPts(); ++i) {
-  	for (unsigned int j=i;j<nbPts();++j) {  
+  	for (unsigned int j=i;j<nbPts();++j) {
 		x1=evalAnimPt(get(j-i),frame);
 		x2=evalAnimPt(get(j),frame);
 		Atemp[j][i]=(Atemp[j][i-1]-Atemp[j-1][i-1])/(x2[0]-x1[0]);
 
-   		}	
+   		}
 	}
-   for (unsigned int i=0; i<nbPts(); ++i) {A[i]=Atemp[i][i];} 
-} 
- 
+   for (unsigned int i=0; i<nbPts(); ++i) {A[i]=Atemp[i][i];}
+}
+
 
 
 QPainterPath path(float frame) {
 	QPainterPath p;
-	if(nbPts()==0) 
+	if(nbPts()==0)
 		return p;
-		
+
 	Vector2f x;
     Vector2f y = evalAnimPt(get(0),frame);
     p.moveTo(y[0],y[1]);
-    
+
     float min = 10000;
 	float max = 0;
 	unsigned int M = 500;
@@ -57,7 +58,7 @@ QPainterPath path(float frame) {
 			}
 			if(max < evalAnimPt(get(i),frame)[0]){
 				max = evalAnimPt(get(i),frame)[0];
-			}	
+			}
 		}
 		y[0] = min;
 		for(unsigned int i=1;i<M+1;i++) {
@@ -72,13 +73,13 @@ QPainterPath path(float frame) {
 			y[0] = min+i*((max-min)/M);
 		}
 	}
-	return p;	
+	return p;
   }
-  
- 
-  
+
+
+
 };
-	
+
 
 
 class LagrangeConstructor : public Curve2DConstructor {
