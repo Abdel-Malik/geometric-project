@@ -2,12 +2,11 @@
 #define CURVE_1D_LINEAR_H
 
 #include "curve1D.h"
-
+using namespace std;
 class Curve1DLinear : public Curve1D {
  public:
  Curve1DLinear(const QString &name) : Curve1D(name) {}
  Curve1DLinear(Curve1D *curve,const QString &name) : Curve1D(curve,name) {}
-  
   QPainterPath path(float xmin,float xmax) {
     QPainterPath p;
 
@@ -32,7 +31,6 @@ class Curve1DLinear : public Curve1D {
     if(xmax>_points[nbPts()-1][0]) {
       p.lineTo(xmax,_points[nbPts()-1][1]);
     }
-
     return p;
   }
 

@@ -24,8 +24,7 @@ HEADERS += \
     animationWidget.h \
     scene.h \
     curve1D.h \
-    curve2D.h \
-    curve1Dcos.h \    
+    curve2D.h \    
     curve1DLinear.h \
     curve2DLinear.h \
     curve2DLinearClosed.h \
