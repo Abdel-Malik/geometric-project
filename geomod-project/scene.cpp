@@ -4,6 +4,7 @@
 #include "curve1DLinear.h"
 #include "curve1DHermite.h"
 #include "curve1DLagrange.h"
+#include "1DBspline.h"
 
 // add all your types of 2D curves here
 #include "curve2DLinear.h"
@@ -41,6 +42,7 @@ void Scene::initFunctionBuilders() {
   addFunctionBuilder(new Curve1DLinearConstructor());
   addFunctionBuilder(new Curve1DLagrangeConstructor());
   addFunctionBuilder(new Curve1DHermiteConstructor());
+  addFunctionBuilder(new Curve1DBsplineConstructor());
 }
 
 

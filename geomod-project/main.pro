@@ -35,6 +35,7 @@ HEADERS += \
     caligraphy.h \
     lagrange.h \
     bezier.h \
+    1DBspline.h \
     bspline.h \
     curve2DCircle.h \
     PolyN.h \
