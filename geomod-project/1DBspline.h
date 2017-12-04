@@ -113,14 +113,20 @@ class Curve1DBspline : public Curve1D {
 		inputshort[0].resize(ORDER);
 		inputshort[1].resize(ORDER);
 		unsigned int r=ORDER-1;
-		for (unsigned int s=ORDER;s<n+1;s++) {if (x>t[s]) r=s; else break;}
+		double xNorm = (x-_points[0][0])/(_points[n][0]-_points[0][0]);//here
+		for (unsigned int s=ORDER;s<n+1;s++) {
+			if (xNorm>t[s])
+				r=s;
+			else
+				break;
+		}
 		tshort.resize(n+2*ORDER-r);
 		for (unsigned int s=0;s<ORDER;s++) {
 			inputshort[0][s]=input[0][r-ORDER+1+s];
 			inputshort[1][s]=input[1][r-ORDER+1+s];
 		}	
 		for (unsigned int s=0;s<n+2*ORDER-r;s++) tshort[s]=t[r-ORDER+1+s];
-		result=boor(inputshort,x,tshort,ORDER);		
+		result=boor(inputshort,xNorm,tshort,ORDER);//here
 	}
 	return result[1];
   }

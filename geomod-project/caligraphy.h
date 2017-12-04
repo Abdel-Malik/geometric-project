@@ -14,9 +14,10 @@ class Caligraphy : public Curve2D {
       return p;
 
     Vector2f pt = evalAnimPt(get(0),frame);
+     p.moveTo(pt[0],pt[1]);
 
     addPoints(frame);
-    p.moveTo(pt[0],pt[1]);
+//    p.moveTo(pt[0],pt[1]);
     for(unsigned int i=1;i<nbPts();++i) {
       pt = evalAnimPt(get(i),frame);
       p.lineTo(pt[0],pt[1]);
@@ -28,6 +29,8 @@ class Caligraphy : public Curve2D {
      if(nbPts()<500){
  	 Vector2f ptS = evalAnimPt(get(0),frame);
 	 add(ptS[0],ptS[1]);
+        int i =0;
+	 while(i<100000){i++;}
      }else{
 	//DivideByFour();
      }
